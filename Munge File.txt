@@ -1,0 +1,39 @@
+The following transformations were applied to the data:
+
+1) A sub-table was created called Sales Genre, with columns for Genre, Global Sales and Critic Score 
+2) The Global Sales column values were rounded
+3) The data was filtered to exclude null values for Critics Score
+4) The table was ranked by Critics Score, Highest to Lowest
+
+The SQL commands used to transform the data are listed below.
+
+
+CREATE TABLE sales_genre 
+(
+Genre string,
+Global_Sales float,
+Critic_Score int
+);
+
+INSERT OVERWRITE TABLE sales_genre
+SELECT Genre, Global_Sales, Critic_Score
+FROM sales;
+
+INSERT OVERWRITE TABLE sales_genre
+SELECT Genre, ROUND(Global_Sales), Critic_Score  
+FROM sales_genre;
+
+INSERT OVERWRITE TABLE sales_genre
+SELECT *
+FROM sales_genre
+WHERE Critic_Score >0;
+
+INSERT OVERWRITE TABLE sales_genre
+SELECT *
+FROM sales_genre
+ORDER BY Critic_Score DESC;
+
+
+
+
+
