@@ -1,0 +1,5 @@
+The data used for this project can be retrieved from:
+
+https://www.kaggle.com/rush4ratio/video-game-sales-with-ratings
+
+Alternatively, the file can be located at Kaggle.com, under the name Video Game Sales with Ratings. The second version of the dataset was used.  
