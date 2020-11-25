@@ -1,0 +1,80 @@
+The Following Aggregations were applied to the data set. 
+
+1) Average Critics Scores values were calculated for the Sports and Shooter genres 
+2) Summary tables were created for Sports, Shooter and all games, with min, max and average columns
+3) Global Sales values were counted for the Sports and Shooter genres 
+
+The SQL commands used for data aggregations were as follows:
+
+CREATE TABLE sports_games
+(
+Sports_Critics_Score float
+);
+CREATE TABLE shooter_games
+(
+Shooter_Critics_Score float
+);
+INSERT OVERWRITE TABLE sports_games
+SELECT AVG(critic_Score) As Sports_Critics_Score
+FROM sales_genre
+WHERE Genre LIKE "%Sports%";
+Select * from sports_games limit 10;
+INSERT OVERWRITE TABLE shooter_games
+SELECT AVG(Critic_Score) AS Shooter_Critics_Score
+FROM sales_genre
+WHERE Genre LIKE "%Shooter%";
+
+CREATE TABLE sports_games_stats
+(
+Average_Global_Sales float, 
+Min_Global_Sales float,
+Max_Global_Sales float
+);
+CREATE TABLE shooter_games_stats
+(
+Average_Global_Sales float,
+Min_Global_Sales float,
+Max_Global_Sales float
+);
+CREATE TABLE all_games_stats
+(
+Average_Global_Sales float,
+Min_Global_Sales float,
+Max_Global_Sales float
+);
+INSERT OVERWRITE TABLE sports_games_stats
+SELECT AVG(Global_Sales) As Average_Global_Sales, MIN(Global_Sales) As Min_Global_Sales,
+Max(Global_Sales) As Max_Global_Sales
+FROM sales_genre
+WHERE Genre LIKE "%Sports%";
+INSERT OVERWRITE TABLE shooter_games_stats
+SELECT AVG(Global_Sales) As Average_Global_Sales, Min(Global_Sales) As Min_Global_Sales,
+Max(Global_Sales) As Max_Global_Sales
+FROM sales_genre
+WHERE Genre LIKE "%Shooter%";
+INSERT OVERWRITE TABLE all_games_stats
+SELECT AVG(Global_Sales) As Average_Global_Sales, Min(Global_Sales) As Min_Global_Sales,
+Max(Global_Sales) As Max_Global_Sales
+FROM sales_genre;
+
+CREATE TABLE sports_games_count
+(
+Global_Sales float,
+Count int
+);
+CREATE TABLE shooter_games_count
+(
+Global_Sales float,
+Count int
+);
+INSERT OVERWRITE TABLE sports_games_count
+SELECT Global_Sales As Global_Sales, COUNT(Global_Sales) As Count
+FROM sales_genre
+WHERE Genre LIKE "%Sports%"
+GROUP BY Global_Sales;
+Select * From sports_games_count;
+INSERT OVERWRITE TABLE shooter_games_count
+SELECT Global_Sales As Global_Sales, COUNT(Global_Sales) As Count
+FROM sales_genre
+WHERE Genre LIKE "%Shooter%"
+GROUP BY Global_Sales;
