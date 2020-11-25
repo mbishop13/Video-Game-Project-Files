@@ -18,8 +18,12 @@ Project Directory:
 File: 	        File Contents:
 
 Data File	Data Source Location	        
+
 Munge File	Data Transformation Information 
+
 SRC File	Data Aggregation Information
+
 Reports 	Data Visualizations 
-README	  Project Overview 
+
+README	        Project Overview 
 	        
